@@ -1,3 +1,10 @@
+/*
+Team:
+Marc Wenger
+Raul Kiener
+Adrian Bodenstein
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -7,6 +14,7 @@ typedef enum {
 	NUMSTAT,
 	CUBIC,
 	FACTORIAL,
+	NCHOOSEK,
 	BINARY,
 	EXIT
 } MenuItem;
@@ -17,6 +25,7 @@ MenuItem PrintMainMenu( void );
 void NumStat( double value1, double value2 );
 long int ComputeCubic( long int x );
 long Factorial( int n );
+long nChooseK(int n, int k);
 void PrintBinary( unsigned int input );
 
 
@@ -24,7 +33,7 @@ int main( int argc, char* argv[] )
 {
 
 	MenuItem menuSelected = MAIN_MENU;
-	int run = 1, number, n = 0;
+	int run = 1, number, n, k = 0;
 	double value1, value2 = 0;
 	long int input = 0;	
 	while(run)
@@ -57,6 +66,16 @@ int main( int argc, char* argv[] )
 				scanf("%d", &n);
 				printf("\n");
 				printf("The factorial of %d is %ld.\n\n", n, Factorial( n ));
+				menuSelected = MAIN_MENU;
+				break;
+				
+			case NCHOOSEK:
+				printf("Enter two int numbers:\nNumber1: ");
+				scanf("%d", &n);
+				printf("Number 2: ");
+				scanf("%d", &k);
+				printf("\n");
+				printf("The NChooseK of %d and %d is %ld.\n\n", n, k, nChooseK( n, k ));
 				menuSelected = MAIN_MENU;
 				break;
 				
@@ -95,6 +114,7 @@ MenuItem PrintMainMenu( void )
 	printf("%d - NumStat\n", NUMSTAT);
 	printf("%d - Cubic\n", CUBIC);
 	printf("%d - Factorial\n", FACTORIAL);
+	printf("%d - NChooseK\n", NCHOOSEK);
 	printf("%d - Binary\n", BINARY);
 	printf("%d - Exit\n", EXIT);
 	printf("--> ");
@@ -130,6 +150,10 @@ long Factorial( int n ){
         return n*Factorial(n-1);
     else
         return 1;
+}
+
+long nChooseK(int n, int k){
+	return Factorial(n)/(Factorial(k)*Factorial(n-k));
 }
 
 void PrintBinary( unsigned int input ){
